@@ -1,8 +1,24 @@
+import java.util.concurrent.BrokenBarrierException;
+
 /** Class that determines whether or not a year is a leap year.
  *  @author YOUR NAME HERE
  */
 public class LeapYear {
-
+    /**
+     *
+     * @param year to be analyzed
+     * @return whether the year is leap year or not
+     */
+    public static boolean isLeapYear(int year){
+        if (year%400 == 0){
+            return true;
+        }
+        else if (year%4 == 0 && year%100 != 0) {
+            return true;
+        }else {
+            return false;
+        }
+    }
     /** Calls isLeapYear to print correct statement.
      *  @param  year to be analyzed
      */
