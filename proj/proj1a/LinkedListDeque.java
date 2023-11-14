@@ -1,5 +1,7 @@
-import com.sun.xml.internal.ws.api.server.LazyMOMProvider;
 
+/**
+ * @author 77507
+ */
 public class LinkedListDeque<T> {
     public class Node{
         public Node prev;
@@ -27,25 +29,21 @@ public class LinkedListDeque<T> {
     }
 
     public void addFirst(T item){
-        /**
-         * node = 0
-         */
+        //node = 0
         if (sentinel.next == null){
             sentinel.next = new Node(null,item,null);
             size++;
         }
-        /**
-         * node >1
-         */
+        // node >1
+
         else if (sentinel.next.prev != null){
             sentinel.next = new Node(sentinel.next.prev,item,sentinel.next);
             sentinel.next.prev.next = sentinel.next;
             sentinel.next.next.prev = sentinel.next;
             size++;
         }
-        /**
-         * node = 1
-         */
+        // node = 1
+
         else {
             sentinel.next = new Node(null,item,sentinel.next);
             sentinel.next.next.next = sentinel.next;
@@ -56,24 +54,18 @@ public class LinkedListDeque<T> {
     }
 
     public void addLast(T item){
-        /**
-         * node = 0
-         */
+        // node = 0
         if (sentinel.next == null){
             sentinel.next = new Node(null,item,null);
             size++;
         }
-        /**
-         * node >1
-         */
+        // node >1
         else if (sentinel.next.prev != null){
             sentinel.next.prev = new Node(sentinel.next.prev,item,sentinel.next);
             sentinel.next.prev.prev.next = sentinel.next.prev;
             size++;
         }
-        /**
-         * node = 1
-         */
+        //node = 1
         else {
             sentinel.next.next = new Node(sentinel.next,item,sentinel.next);
             sentinel.next.prev = sentinel.next.next;
@@ -82,11 +74,7 @@ public class LinkedListDeque<T> {
     }
 
     public boolean isEmpty(){
-        if (sentinel.next == null){
-            return true;
-        }else {
-            return false;
-        }
+        return sentinel.next == null;
     }
 
     public int size(){
@@ -111,7 +99,7 @@ public class LinkedListDeque<T> {
             return item;
         }else {
             size--;
-            T item = (T) sentinel.next.item;
+            T item = sentinel.next.item;
             sentinel.next.next.prev = sentinel.next.prev;
             sentinel.next.prev.next = sentinel.next.next;
             sentinel.next = sentinel.next.next;
@@ -129,7 +117,7 @@ public class LinkedListDeque<T> {
             return item;
         }else {
             size--;
-            T item = (T) sentinel.next.prev.item;
+            T item = sentinel.next.prev.item;
             sentinel.next.prev = sentinel.next.prev.prev;
             sentinel.next.prev.next = sentinel.next;
             return item;
