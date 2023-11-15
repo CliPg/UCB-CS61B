@@ -1,7 +1,7 @@
 /**
  * @author CliPg
  */
-public class ArrayDeque<T>{
+public class ArrayDeque<T> implements Deque<T>{
     private T [] arrayDeque;
     private int size;
     private int first;
@@ -25,29 +25,30 @@ public class ArrayDeque<T>{
         int newFirst = first+1;
         int newLast = last-1;
         int i = length / 2;
-        for (int count1 = 0; count1 < countFirst; count1++) {
-            if (newFirst > length - 1) {
-                newFirst = 0;
+            for (int count1 = 0; count1 < countFirst; count1++) {
+                if (newFirst > length - 1) {
+                    newFirst = 0;
+                }
+                newArray[i] = arrayDeque[newFirst];
+                newFirst++;
+                i++;
             }
-            newArray[i] = arrayDeque[newFirst];
-            newFirst++;
-            i++;
-        }
         int j = length/2+length-1;
-        for (int count2 = 0; count2 < countLast; count2++) {
-            if (newLast < 0) {
-                newLast = length-1;
+            for (int count2 = 0; count2 < countLast; count2++) {
+                if (newLast < 0) {
+                    newLast = length-1;
+                }
+                newArray[j] = arrayDeque[newLast];
+                newLast--;
+                j--;
             }
-            newArray[j] = arrayDeque[newLast];
-            newLast--;
-            j--;
-        }
         arrayDeque = newArray;
         first = length/2-1;
         last = length/2+length;
         length *= 2;
-    }
+        }
 
+    @Override
     public void addFirst(T item){
         if (first > 0 && size != length){
             arrayDeque[first] = item;
@@ -68,6 +69,7 @@ public class ArrayDeque<T>{
         }
     }
 
+    @Override
     public void addLast(T item){
         if (last < length-1 && size != length){
             arrayDeque[last] = item;
@@ -82,11 +84,13 @@ public class ArrayDeque<T>{
         }else if (size == length){
             enlargeArray();
             arrayDeque[last] = item;
+            last++;
             size++;
             countLast++;
         }
     }
 
+    @Override
     public boolean isEmpty(){
         return size == 0;
     }
@@ -95,6 +99,7 @@ public class ArrayDeque<T>{
         return size;
     }
 
+    @Override
     public void printDeque(){
         int i = 0;
         int p =first;
@@ -109,6 +114,7 @@ public class ArrayDeque<T>{
         System.out.println("\n");
     }
 
+    @Override
     public T removeFirst(){
         T item;
         if (first + 1 == length) {
@@ -121,6 +127,7 @@ public class ArrayDeque<T>{
         return item;
     }
 
+    @Override
     public T removeLast(){
         T item;
         if (last != -1){
@@ -136,6 +143,7 @@ public class ArrayDeque<T>{
         return item;
     }
 
+    @Override
     public T get(int index){
         int p = first;
         if (index > size){
