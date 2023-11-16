@@ -130,14 +130,11 @@ public class ArrayDeque<T> implements Deque<T>{
     @Override
     public T removeLast(){
         T item;
-        if (last != -1){
-            item = arrayDeque[last-1];
-            arrayDeque[last-1] = null;
-        }else {
+        if (last == 0){
             last = length;
-            item = arrayDeque[length-1];
-            arrayDeque[length-1] = null;
         }
+        item = arrayDeque[last-1];
+        arrayDeque[last-1] = null;
         last--;
         size--;
         return item;
