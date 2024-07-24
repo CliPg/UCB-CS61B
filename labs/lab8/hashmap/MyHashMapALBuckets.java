@@ -2,6 +2,7 @@ package hashmap;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * Hash Table with Array List buckets
@@ -14,7 +15,13 @@ public class MyHashMapALBuckets<K, V> extends MyHashMap<K, V> {
      * initial size and load factor
      */
     public MyHashMapALBuckets() {
-        super();
+        super.size = 0;
+        super.bucketNum = 16;
+        super.maxLoad = 0.75;
+        super.buckets = (Collection<Node>[]) new ArrayList[bucketNum];
+        for (int i = 0; i < bucketNum; i++){
+            buckets[i] = createBucket();
+        }
     }
 
     /**
