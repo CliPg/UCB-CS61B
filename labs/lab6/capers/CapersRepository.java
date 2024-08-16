@@ -1,6 +1,8 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
+
 import static capers.Utils.*;
 
 /** A repository for Capers 
@@ -18,7 +20,7 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = null; // TODO Hint: look at the `join`
+    static final File CAPERS_FOLDER = Utils.join(CWD, ".capers"); // TODO Hint: look at the `join`
                                             //      function in Utils
 
     /**
@@ -32,6 +34,17 @@ public class CapersRepository {
      */
     public static void setupPersistence() {
         // TODO
+        File story = Utils.join(Dog.DOG_FOLDER,"story.txt");
+        if(!story.exists()){
+            CAPERS_FOLDER.mkdir();
+            Dog.DOG_FOLDER.mkdir();
+        }
+        try {
+            story.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**
@@ -41,6 +54,16 @@ public class CapersRepository {
      */
     public static void writeStory(String text) {
         // TODO
+        File story = Utils.join(Dog.DOG_FOLDER,"story.txt");
+        text = text + "\n";
+        String beforeText = "";
+        if(story.exists()){
+            beforeText = Utils.readContentsAsString(story);
+        }
+        String currentText = beforeText + text;
+        Utils.writeContents(story,currentText);
+        System.out.println(currentText);
+
     }
 
     /**
@@ -50,6 +73,9 @@ public class CapersRepository {
      */
     public static void makeDog(String name, String breed, int age) {
         // TODO
+        Dog dog = new Dog(name,breed,age);
+        dog.saveDog();
+        System.out.println(dog.toString());
     }
 
     /**
@@ -60,5 +86,8 @@ public class CapersRepository {
      */
     public static void celebrateBirthday(String name) {
         // TODO
+        Dog dog = Dog.fromFile(name);
+        dog.haveBirthday();
+        dog.saveDog();
     }
 }
